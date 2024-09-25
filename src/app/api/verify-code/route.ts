@@ -1,11 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { z } from "zod";
 import { verifySchema } from "@/schema/verifySchema";
-
-const codeQuerySchema = z.object({
-    code: verifySchema,
-});
 
 export async function POST(request: Request) {
     await dbConnect();
@@ -13,8 +8,11 @@ export async function POST(request: Request) {
     try {
         const {username, code} = await request.json();
 
-        const result = codeQuerySchema.safeParse(code);
-        console.log(result.error?.format().code)
+        const verificationCode = {
+            code : code,
+        }
+
+        const result = verifySchema.safeParse(verificationCode);
 
         if (!result.success) {
             const codeErrors = result.error.format().code?._errors || [];
