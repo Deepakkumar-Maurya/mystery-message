@@ -33,7 +33,7 @@ export async function POST(request: Request) {
             return Response.json(
                 {
                     success: false,
-                    message: isAcceptingMessageErrors.length > 0 ? isAcceptingMessageErrors.join(", ") : "Invalid query params",
+                    message: isAcceptingMessageErrors.length > 0 ? isAcceptingMessageErrors.join(", ") : "Invalid body params",
                 },
                 {
                     status: 400,
